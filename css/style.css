@@ -1,0 +1,140 @@
+:root {
+    --color-1: white;
+    --color-2: #3347b0;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: var(--color-1);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header*/
+
+header {
+    display: flex;
+    background-color: var(--color-2);
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 80px 10px 80px;
+}
+
+.logo {
+    height: auto;
+    width: 150px;
+}
+
+.sair img {
+    height: auto;
+    width: 50px;
+}
+
+.sair {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    color: var(--color-1);
+    font-size: 35px;
+    font-weight: 400;
+}
+
+/* Main */
+
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+}
+
+.escolha {
+    display: flex;
+    gap: 5vw;
+}
+
+.escolha div {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+h1 {
+  font-size: 60px;  
+  font-weight: 300;
+}
+
+h1 span {
+    color: var(--color-2);
+    font-weight: 500;
+}
+
+#cursos {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+#cursos button {
+    background-color: var(--color-2);
+    color: var(--color-1);
+    font-size: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 50px 30px;
+    border: 1px solid black;
+    box-shadow: 13px 13px 5px rgba(51, 72, 176, 0.44);
+    transition: 0.3s;
+}
+
+#cursos button:active {
+    transform: scale(0.95);
+}
+
+/* Footer */
+
+footer {
+    color: var(--color-1);
+    background-color: var(--color-2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 35px 80px;
+}
+
+footer h2 {
+    font-weight: 200;
+    font-size: 20px;
+}
+
+.contatos {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contatos span {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.redes-sociais {
+    display: flex;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    header {
+
+    }
+
+    a span {
+      display: none;  
+    }
+}
