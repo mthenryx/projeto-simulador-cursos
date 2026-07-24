@@ -31,12 +31,7 @@ async function exibirCursos(){
 
             exibirCursos.append(buttonCurso)
             
-            if(curso.nome == "Desenvolvimento de Sistemas"){
-                buttonCurso.addEventListener("click", exibirTurmaDS)
-            }else if(curso.nome == "Redes"){
-                buttonCurso.addEventListener("click", exibirTurmaRedes)
-            }
-
+            buttonCurso.addEventListener("click", () => exibirTurma(curso.nome))
         }
 
     } catch (error) {
@@ -44,12 +39,8 @@ async function exibirCursos(){
     }
 }
 
-async function exibirTurmaDS(){
-
-}
-
-async function exibirTurmaRedes(){
-
+async function exibirTurma(curso){
+    
 }
 
 exibirCursos()
