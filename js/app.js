@@ -40,7 +40,11 @@ async function exibirCursos(){
 }
 
 async function exibirTurma(curso){
-    
+    if(curso == "Desenvolvimento de Sistemas"){
+
+    }else{
+        
+    }
 }
 
 exibirCursos()
