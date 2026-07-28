@@ -41,24 +41,25 @@ async function exibirCursos(){
 }
 
 async function exibirTurma(curso){
-
     container.innerHTML = ""
     container.style.flexDirection = "column"
     header.style.height = "120px"
 
+    const span = document.getElementById("sair")
+    span.textContent = "Voltar"
+
+    const encaminhar = document.getElementById("encaminhar")
+    encaminhar.href = "index.html"
+
     const barraStatus = document.createElement("div")
+    barraStatus.id = "barraStatus"
     barraStatus.className = "barra-status"
 
     const buttonStatus = document.createElement("button")
     buttonStatus.className = "button-status"
     buttonStatus.textContent = "Status"
     buttonStatus.addEventListener("click", async () => {
-        const menuStatus = document.createElement("div")
-        menuStatus.className = "menu-status"
-
-        
-
-        container.appendChild(menuStatus)
+        criarFiltro(curso)
     })
 
     const legenda = document.createElement("div")
@@ -88,6 +89,7 @@ async function exibirTurma(curso){
 
     const cardsAlunos = document.createElement("div")
     cardsAlunos.className = "cards-alunos"
+    cardsAlunos.id = "cardsAlunos"
 
     if(curso == "Desenvolvimento de Sistemas"){
         const alunos = await getAlunosNoCurso(1)
@@ -150,8 +152,181 @@ async function exibirTurma(curso){
     container.append(tituloCurso, cardsAlunos)
 }
 
-function exibirDadosDoAluno(aluno){
+let abrirFecharMenu = true
+let menuStatus = null 
 
+function criarFiltro(curso){
+    if(abrirFecharMenu){
+
+        if(!menuStatus){ 
+            menuStatus = document.createElement("div")
+            menuStatus.className = "menu-status"
+
+            const buttonStatus = document.createElement("button")
+            buttonStatus.className = "button-effect"
+            buttonStatus.textContent = "Status"
+            buttonStatus.id = "buttonStatus"
+            buttonStatus.addEventListener("click", () => {
+                adicionarIconeOk("buttonStatus")
+                filtrarAlunos("todos", curso)
+            })
+
+            const buttonFinalizado = document.createElement("button")
+            buttonFinalizado.className = "button-effect"
+            buttonFinalizado.textContent = "Finalizado"
+            buttonFinalizado.id = "buttonFinalizado"
+            buttonFinalizado.addEventListener("click", () => {
+                adicionarIconeOk("buttonFinalizado")
+                filtrarAlunos("finalizado", curso)
+            })
+
+            const buttonCursando = document.createElement("button")
+            buttonCursando.className = "button-effect"
+            buttonCursando.textContent = "Cursando"
+            buttonCursando.id = "buttonCursando"
+            buttonCursando.addEventListener("click", () => {
+                adicionarIconeOk("buttonCursando")
+                filtrarAlunos("cursando", curso)
+            })
+
+            menuStatus.append(buttonStatus, buttonFinalizado, buttonCursando)
+            container.appendChild(menuStatus)
+        }
+
+        menuStatus.style.display = "block"
+        abrirFecharMenu = false
+
+    } else {
+        menuStatus.style.display = "none"
+        abrirFecharMenu = true
+    }
+}
+
+function adicionarIconeOk(idBotao){
+    const botao = document.getElementById(idBotao)
+
+    const botaoStatus = document.getElementById("buttonStatus")
+    const botaoFinalizado = document.getElementById("buttonFinalizado")
+    const botaoCursando = document.getElementById("buttonCursando")
+
+    const img1 = botaoStatus.querySelector("img")
+    const img2 = botaoFinalizado.querySelector("img")
+    const img3 = botaoCursando.querySelector("img")
+
+    if(botaoStatus.querySelector("img") !== null){
+        img1.remove()
+    }
+    
+    if(botaoFinalizado.querySelector("img") !== null){
+        img2.remove()
+    }
+    
+    if(botaoCursando.querySelector("img") !== null){
+        img3.remove()
+    }
+    
+    const imgOk = document.createElement("img")
+    imgOk.src = "./img/ok.png"
+    imgOk.alt = "Simbolo de ok"
+
+    botao.appendChild(imgOk)
+}
+
+async function filtrarAlunos(caracteristica, curso){
+    const cardsAlunos = document.getElementById("cardsAlunos")
+    cardsAlunos.innerHTML = ""
+
+    const idCurso = curso == "Desenvolvimento de Sistemas" ? 1 : 2
+
+    const alunos = await getAlunosNoCurso(idCurso)
+
+    let alunosFiltrados
+
+    if(caracteristica === "todos"){
+        alunosFiltrados = alunos
+    } else {
+        alunosFiltrados = alunos.filter(aluno => aluno.status === caracteristica)
+    }
+
+    for(let aluno of alunosFiltrados){
+        const cardAluno = document.createElement("div")
+        cardAluno.className = "card-aluno"
+        cardAluno.style.cursor = "pointer"
+
+        cardAluno.addEventListener("click", () => {
+            exibirDadosDoAluno(aluno)
+        })
+
+        const imgAluno = document.createElement("img")
+        imgAluno.src = aluno.foto
+        imgAluno.alt = "Imagem de um usuário"
+
+        const nomeAluno = document.createElement("h3")
+        nomeAluno.textContent = aluno.nome
+
+        cardAluno.append(imgAluno, nomeAluno)
+        cardsAlunos.append(cardAluno)
+
+        if(aluno.status == "cursando"){
+            cardAluno.classList.add("cursando")
+        } else if(aluno.status == "finalizado"){
+            cardAluno.classList.add("finalizado")
+        }
+    }
+}
+
+async function exibirDadosDoAluno(aluno){
+    const barraStatus = document.getElementById("barraStatus")
+    barraStatus.style.display = "none"
+    container.innerHTML = ""
+    header.style.height = "auto"
+
+    console.log(aluno)
+    
+    const perfil = document.createElement("div")
+    perfil.className = "perfil"
+
+    const caracteristica = document.createElement("div")
+    caracteristica.className = "caracteristica"
+
+    const fotoPerfil = document.createElement("img")
+    fotoPerfil.src = aluno.foto
+
+    const nome = document.createElement("h3")
+    nome.textContent = aluno.nome
+
+    const dadosPessoais = document.createElement("div")
+    dadosPessoais.className = "dados-pessoais"
+
+    for(let desempenho of aluno.desempenho){
+
+        const materia = document.createElement("label")
+        materia.textContent = desempenho.valor
+        materia.className = "materia"
+
+        const porcentagem = document.createElement("progress")
+        porcentagem.className = "porcentagem"
+        porcentagem.value = desempenho.valor
+        porcentagem.max = "100"
+
+        if(desempenho.valor <= 50 && desempenho.valor > 30){
+            materia.style.color = "#f1c232"
+            porcentagem.classList.add("amarelo")
+        }else if(desempenho.valor <= 30){
+            materia.style.color = "e74c3c"
+            porcentagem.classList.add("vermelho")
+        }
+
+        const categoria = document.createElement("span")
+        categoria.textContent = desempenho.categoria
+
+        materia.append(porcentagem, categoria)
+        dadosPessoais.append(materia)
+    }
+
+    caracteristica.append(fotoPerfil, nome)
+    perfil.append(caracteristica, dadosPessoais)
+    container.appendChild(perfil)
 }
 
 exibirCursos()

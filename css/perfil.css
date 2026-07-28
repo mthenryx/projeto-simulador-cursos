@@ -1,0 +1,120 @@
+/* Estilização do perfil */
+
+.perfil {
+    display: flex;
+    width: 80vw;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.caracteristica {
+    height: 400px;
+    width: 35%;
+    padding: 30px;
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.caracteristica h3 {
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    font-weight: 400;
+    color: #3347b0;
+}
+
+.caracteristica img {
+    height: auto;
+    border-radius: 50%;
+}
+
+.dados-pessoais {
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    padding: 30px;
+    display: flex;
+    width: 35%;
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo do container de cada matéria */
+.materia {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 80%;
+    width: 20%;
+    color: #3347b0;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    font-weight: 700;
+}
+
+.materia span {
+    color: #3347b0;
+}
+
+progress.porcentagem {
+    transform: rotate(-90deg); 
+    width: 220px; 
+    height: 14px;
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    background: transparent;
+}
+
+/* Opções de cor */
+
+progress.porcentagem::-webkit-progress-bar {
+    background-color: #eef2f8;
+    border-radius: 10px;
+}
+
+progress.porcentagem::-webkit-progress-value {
+    background-color: #3b59ba;
+    border-radius: 10px;
+}
+
+progress.porcentagem::-moz-progress-bar {
+    background-color: #3b59ba;
+    border-radius: 10px;
+}
+
+progress.porcentagem.amarelo::-webkit-progress-value {
+    background-color: #f1c232;
+}
+
+progress.porcentagem.amarelo::-moz-progress-bar {
+    background-color: #f1c232;
+}
+
+
+progress.porcentagem.vermelho::-webkit-progress-value {
+    background-color: #e74c3c;
+}
+
+progress.porcentagem.vermelho::-moz-progress-bar {
+    background-color: #e74c3c;
+}
+
+/* Resposividade */
+
+@media (max-width: 768px) {
+    .perfil {
+        flex-direction: column;
+        gap: 50px;
+    }
+
+    .caracteristica {
+        width: 80%;
+    }
+
+    .dados-pessoais {
+        width: 100%;
+        box-shadow: none;
+    }
+}
