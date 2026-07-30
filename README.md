@@ -9,3 +9,5 @@ Um dos destaques desse início é a integração entre front-end e back-end em u
 Essa integração é essencial, pois mostra como tudo se conecta no desenvolvimento de sistemas. Não se trata apenas de fazer algo “bonito” na tela, mas de garantir que funcione de verdade, com dados sendo enviados, recebidos e processados corretamente.
 
 Assim, o retorno às aulas no SENAI já começa de forma dinâmica, prática e desafiadora, preparando os alunos para situações reais do mercado de trabalho e incentivando o desenvolvimento de habilidades completas na área de tecnologia.</p>
+
+<span>Link do figma do Professor: https://www.figma.com/design/NMubBoEN2tDIfWsTO1EJN9/Lion-School--SENAI?node-id=0-68&t=yC9D4MK10RDtVTaj-1</span>
