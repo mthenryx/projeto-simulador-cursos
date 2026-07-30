@@ -65,23 +65,31 @@ async function exibirTurma(curso){
     const legenda = document.createElement("div")
     legenda.className = "legenda"
 
-    const legendaTitulo = document.createElement("span")
-    legendaTitulo.classList.add("legenda-text")
+    const legendaTitulo = document.createElement("button")
+    legendaTitulo.classList.add("legenda-button")
     legendaTitulo.textContent = "LEGENDA"
 
     const quadradoAzul = document.createElement("div")
-    quadradoAzul.classList.add("quadrado-azul")
+    quadradoAzul.classList.add("quadrado-azul", "apagar")
 
     const cursando = document.createElement("span")
-    cursando.classList.add("legenda-text")
+    cursando.classList.add("legenda-text", "apagar")
     cursando.textContent = "Cursando"
 
     const quadradoAmarelo = document.createElement("div")
-    quadradoAmarelo.classList.add("quadrado-amarelo")
+    quadradoAmarelo.classList.add("quadrado-amarelo", "apagar")
 
     const finalizado = document.createElement("span")
-    finalizado.classList.add("legenda-text")
+    finalizado.classList.add("legenda-text", "apagar")
     finalizado.textContent = "Finalizado"
+
+    if (window.innerWidth <= 768) {
+        legendaTitulo.classList.add("clicavel")
+
+        legendaTitulo.addEventListener("click", async () => {
+            criarCardLegenda()
+        })
+    }
 
     const tituloCurso = document.createElement("h1")
     tituloCurso.className = "titulo-curso"
@@ -150,6 +158,37 @@ async function exibirTurma(curso){
     barraStatus.append(buttonStatus, legenda)
     header.append(barraStatus)
     container.append(tituloCurso, cardsAlunos)
+}
+
+let abrirFecharMenuLegenda = true
+let menuStatusLegenda = null 
+
+function criarCardLegenda(){
+    if(abrirFecharMenuLegenda){
+
+        if(!menuStatusLegenda){ 
+                menuStatusLegenda = document.createElement("div")
+                menuStatusLegenda.className = "card-legenda"
+            
+                const cursando = document.createElement("span")
+                cursando.textContent = "Cursando"
+                cursando.className = "legenda-cursando"
+            
+                const finalizado = document.createElement("span")
+                finalizado.textContent = "Finalizado"
+                finalizado.className = "legenda-finalizado"
+            
+                menuStatusLegenda.append(cursando, finalizado)
+                container.appendChild(menuStatusLegenda)
+        }
+
+        menuStatusLegenda.style.display = "flex"
+        abrirFecharMenuLegenda = false
+
+    } else {
+        menuStatusLegenda.style.display = "none"
+        abrirFecharMenuLegenda = true
+    }
 }
 
 let abrirFecharMenu = true
